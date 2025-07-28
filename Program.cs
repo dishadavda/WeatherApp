@@ -17,6 +17,10 @@ builder.Services.AddServerSideBlazor()
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.Configure<SendGridSettings>(
+    builder.Configuration.GetSection("SendGrid"));
+builder.Services.Configure<OpenWeatherSettings>(
+    builder.Configuration.GetSection("OpenWeatherMap"));
 builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

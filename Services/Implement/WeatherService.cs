@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Extensions.Options;
+using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Weartherapp.Data;
 using Weartherapp.Data.Model;
 using Weartherapp.Services.Interface;
 
@@ -12,12 +14,12 @@ namespace Weartherapp.Services.Implement
         private readonly IConfiguration _config;
         private readonly string _apiKey;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
-        public WeatherService(HttpClient httpClient, IConfiguration config)
+        public WeatherService(HttpClient httpClient, IOptions<OpenWeatherSettings> settings)
         {
             _httpClient = httpClient;
-            _config = config;
-            _apiKey = _config["OpenWeatherMap:ApiKey"] ?? throw new Exception("Missing API key.");
-            
+            _apiKey = settings.Value.ApiKey;
+            _apiKey = settings.Value.ApiKey ?? throw new Exception("Missing API key.");
+
         }
 
         public async Task<List<WeatherForecast>> GetForecastForCityAsync(string cityName)

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Weartherapp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0fff1436ab5e47f42d33980e0283cfdfa4444f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Weartherapp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Weartherapp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

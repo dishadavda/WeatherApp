@@ -126,3 +126,4 @@ C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\refint\Weartherapp.dll
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.pdb
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.genruntimeconfig.cache
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\ref\Weartherapp.dll
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.sourcelink.json
