@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("c957fc3d-bf6f-4753-9750-8e06436168e0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Weartherapp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c9c7fb64873ee0bce20bfe73cb91d79528debb3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07fab147a071d7a316a6cce49a319d5b27f41bea")]
 [assembly: System.Reflection.AssemblyProductAttribute("Weartherapp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Weartherapp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
