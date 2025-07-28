@@ -1,3 +1,11 @@
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.csproj.AssemblyReference.cache
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.GeneratedMSBuildEditorConfig.editorconfig
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.AssemblyInfoInputs.cache
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.AssemblyInfo.cs
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.csproj.CoreCompileInputs.cache
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.MvcApplicationPartsAssemblyInfo.cache
+C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.sourcelink.json
 C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\appsettings.Development.json
 C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\appsettings.json
 C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\package-lock.json
@@ -101,13 +109,6 @@ C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis
 C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\WeatherApp\Weartherapp\Weartherapp\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.csproj.AssemblyReference.cache
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.GeneratedMSBuildEditorConfig.editorconfig
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.AssemblyInfoInputs.cache
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.AssemblyInfo.cs
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.csproj.CoreCompileInputs.cache
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.MvcApplicationPartsAssemblyInfo.cache
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -126,4 +127,3 @@ C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\refint\Weartherapp.dll
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.pdb
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.genruntimeconfig.cache
 C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\ref\Weartherapp.dll
-C:\WeatherApp\Weartherapp\Weartherapp\obj\Debug\net8.0\Weartherapp.sourcelink.json

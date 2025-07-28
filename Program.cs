@@ -9,6 +9,7 @@ using Weartherapp.Data;
 using Weartherapp.Services;
 using Weartherapp.Services.Implement;
 using Weartherapp.Services.Interface;
+using Weartherapp.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddServerSideBlazor()
@@ -37,9 +38,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddScoped<EmailSender>();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 43))));

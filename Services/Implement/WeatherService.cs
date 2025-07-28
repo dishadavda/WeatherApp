@@ -1,19 +1,15 @@
 ﻿using Microsoft.Extensions.Options;
-using System.ComponentModel;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using Weartherapp.Data;
-using Weartherapp.Data.Model;
 using Weartherapp.Services.Interface;
+using Weartherapp.Shared;
 
 namespace Weartherapp.Services.Implement
 {
     public class WeatherService : ICityWeatherService
     {
         private readonly HttpClient _httpClient;
-        private readonly IConfiguration _config;
         private readonly string _apiKey;
-        private readonly JsonSerializerOptions _jsonSerializerOptions;
+        
         public WeatherService(HttpClient httpClient, IOptions<OpenWeatherSettings> settings)
         {
             _httpClient = httpClient;
@@ -23,7 +19,7 @@ namespace Weartherapp.Services.Implement
         }
 
         public async Task<List<WeatherForecast>> GetForecastForCityAsync(string cityName)
-            {
+        {
             if (string.IsNullOrWhiteSpace(cityName))
                 return new List<WeatherForecast>();
 
@@ -73,9 +69,5 @@ namespace Weartherapp.Services.Implement
 
             return forecast;
         }
-
-
-
-
     }
 }

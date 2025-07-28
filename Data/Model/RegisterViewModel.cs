@@ -28,7 +28,7 @@ namespace WeatherApp.Data.Models
         public string Password { get; set; } = string.Empty;
 
     }
-    public class login : BaseModel
+    public class Logins : BaseModel
     {
         public bool RememberMe { get; set; }
     }

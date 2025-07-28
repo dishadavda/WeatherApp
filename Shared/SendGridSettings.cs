@@ -1,4 +1,4 @@
-﻿namespace Weartherapp.Data
+﻿namespace Weartherapp.Shared
 {
     public class SendGridSettings
 

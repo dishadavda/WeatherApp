@@ -10,7 +10,6 @@
 @using WeatherApp.Data.Models
 @inject ApplicationDbContext Context;
 @inject NavigationManager NavigationManager
-@inject UserManager<ApplicationUser> _userManager
 @inject AuthenticationStateProvider provider
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
@@ -108,9 +107,9 @@
     public string ReturnUrl { get; set; } = "/";
 
     [SupplyParameterFromForm]
-    protected login loginModel { get; set; } = new();
+    protected Logins loginModel { get; set; } = new();
 
-    public string errorMessage { get; set; }
+    public string errorMessage { get; set; } = string.Empty;
     public string passwordType => showPassword ? "text" : "password";
     private bool showPassword = false;
 

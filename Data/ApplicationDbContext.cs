@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Weartherapp.Data.Model;
+using Weartherapp.Data.Entites;
 using WeatherApp.Data.Entities;
 
 namespace Weartherapp.Data

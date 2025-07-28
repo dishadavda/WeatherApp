@@ -3,7 +3,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Net;
 using System.Net.Mail;
-using Weartherapp.Data;
+using Weartherapp.Shared;
 
 namespace Weartherapp.Services
 {

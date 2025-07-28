@@ -64,6 +64,10 @@
         {
         <p class="text-red-600 font-semibold text-lg mt-2">@errorMessage</p>
         }
+    @if (successMessage != null)
+    {
+        <p class="text-green-600 font-semibold text-lg mt-2">@successMessage</p>
+    }
 
         <!-- Weather Display Section -->
         <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6">
@@ -120,9 +124,8 @@
     private List<WeatherForecast>? forecasts;
     private string? errorMessage;
     private string? successMessage;
-    private bool isSuperUser = false;
     private long currentUserId = 0;
-    private string storedName;
+    private string storedName = "";
     private bool isModalVisible = false;
     private bool _initialized = false;
     protected override async Task OnAfterRenderAsync(bool firstRender)
