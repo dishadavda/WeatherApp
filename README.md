@@ -1,74 +1,138 @@
-﻿# 🌦️ Blazor Weather App
+# 🌦️ Weather App (Blazor Server)
 
-This is a full-stack **Weather Web Application** built using **Blazor Server**, **.NET 8**, **Entity Framework Core**, and **MySQL**. It replicates features similar to the Windows Weather App, with a strong focus on clean architecture, authentication, and role-based authorization.
-
----
-
-## 🚀 Features
-
-- ✅ **User Authentication**
-  - Register and login functionality.
-  - Password hashing using BCrypt.
-  - Session managed with `AuthenticationStateProvider`.
-
-- 🔐 **Role-based Authorization**
-  - Two user roles: `Simple` and `SuperUser`.
-  - Only `SuperUser` can save up to 5 favorite cities.
-
-- 🌍 **City Search & Weather**
-  - Search any city and get the **current weather** and **5-day forecast**.
-  - Data fetched using [OpenWeatherMap API](https://openweathermap.org/api).
-
-- ⭐ **Favorite Cities Dashboard**
-  - `SuperUsers` can save and remove up to 5 favorite cities.
-  - All users can view their own favorites.
-
-- 📧 **Forgot & Reset Password**
-  - Forgot password flow with email reset link.
-  - SendGrid is used to send reset password emails.
-
-- 🎨 **Tailwind CSS UI**
-  - Mobile-friendly and responsive.
-  - Custom login layout with background image and top bar.
+This is a weather forecast web application built using **Blazor Server**. It allows authenticated users to search for city weather data and view a 5-day forecast using the **OpenWeatherMap API**. Users are assigned roles: `Simple` and `Super`. Only **Super** users can save up to 5 favorite cities and manage them from the dashboard.
 
 ---
 
-## 🧰 Tech Stack
+## 📦 Tech Stack Used
 
-| Category      | Technology                          |
-|---------------|--------------------------------------|
-| Frontend      | Blazor Server                        |
-| Backend       | .NET 8, C#, Entity Framework Core    |
-| Styling       | Tailwind CSS                         |
-| Authentication| Custom AuthenticationStateProvider  |
-| Database      | MySQL                                |
-| Email Service | SendGrid API                         |
-| Weather API   | OpenWeatherMap API                   |
+| Area             | Technology / Tool                             |
+| ---------------- | --------------------------------------------- |
+| Frontend         | Blazor Server (C# + Razor Components)         |
+| Styling          | Tailwind CSS                                  |
+| Backend          | .NET 8, ASP.NET Core                          |
+| Database         | MySQL                                         |
+| Auth             | ASP.NET Core Identity                         |
+| API              | [OpenWeatherMap](https://openweathermap.org/) |
+| Email (Optional) | SendGrid for email confirmation               |
+| State & Storage  | `AuthenticationStateProvider`, `LocalStorage` |
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1. 🔧 Prerequisites
+### ✅ Prerequisites
 
-- .NET SDK 8
-- MySQL Server (local or remote)
-- Visual Studio or VS Code
-- Git installed
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download)
+- MySQL installed and running
+- [Node.js](https://nodejs.org/en) (for Tailwind CLI if needed)
+- Visual Studio 2022 or VS Code
 
-### 2. 🔑 Add Your API Keys
+---
 
-- Create `appsettings.json` (do **not** commit this to GitHub):
+### 🔐 1. Configure `appsettings.json`
+
+Create a new `appsettings.json` (DO NOT PUSH THIS TO GITHUB):
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "server=localhost;database=weatherappdb;user=root;password=yourpassword;"
+    "DefaultConnection": "server=localhost;user=root;password=yourpassword;database=WeatherAppDb;"
   },
   "OpenWeatherMap": {
-    "ApiKey": "your_openweather_api_key"
+    "ApiKey": "your_open_weather_api_key"
   },
   "SendGrid": {
     "ApiKey": "your_sendgrid_api_key"
   }
 }
+```
+
+---
+
+### 🛠️ 2. Database Setup
+
+1. Run EF Core migrations:
+
+   ```bash
+   dotnet ef database update
+   ```
+
+2. Ensure roles are seeded:
+
+   - `Simple`
+   - `Super`
+
+(These are created during Identity seeding in `Startup.cs` or `Program.cs`.)
+
+---
+
+### ▶️ 3. Run the App
+
+In the project root:
+
+```bash
+dotnet run
+```
+
+App will be available at: [https://localhost:5001](https://localhost:5001)
+
+---
+
+## 👥 Roles and Permissions
+
+| Role   | Permissions                                   |
+| ------ | --------------------------------------------- |
+| Simple | Can search weather for any city               |
+| Super  | Can search weather AND save 5 favorite cities |
+
+---
+
+## 📌 Features
+
+- 🔐 Login / Register with Identity Roles
+- 🔍 Weather Search for Any City
+- 📊 5-Day Forecast
+- ⭐ Save Favorite Cities (Super Users Only, Max 5)
+- 📜 Role-based access control
+- 📂 Responsive, Tailwind-Styled UI
+
+---
+
+## 📌 Assumptions & Limitations
+
+### ✅ Assumptions:
+
+- Only `Super` users should save cities to favorites.
+- Favorite cities are limited to **5 per user**.
+- Email confirmation using SendGrid is optional.
+
+### ⚠️ Known Limitations:
+
+- No frontend validation for role-based features (relies on backend enforcement).
+- Weather icons/images are hardcoded instead of dynamic from API.
+- No rate limiting or caching on API calls.
+
+---
+
+## 🚀 Future Improvements
+
+- Add role management UI in the admin panel.
+- Better error and success notifications with dismissable alerts.
+- Replace image URLs with weather icons from the OpenWeather API.
+- Add responsive loading skeletons or spinners.
+- Auto-refresh token/session timeout handling.
+- Use Redis for caching frequently searched cities.
+
+---
+
+## 🧑‍💻 Author
+
+👩‍💻 [Disha Rakholiya](https://github.com/dishadavda)
+
+---
+
+## 🛡️ License
+
+MIT License
+
