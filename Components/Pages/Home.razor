@@ -1,0 +1,26 @@
+﻿
+
+<PageTitle>Home!</PageTitle>
+
+<div class="row">
+    <div class="col-12">
+        <h2>coding</h2>
+
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <AuthorizeView>
+                    <Authorized>
+                        <p>Hello, @context.User.Identity?.Name!</p>
+                    </Authorized>
+                    <NotAuthorized>
+                        <p>You're not authorized.</p>
+                    </NotAuthorized>
+                </AuthorizeView>
+</div>
+
+        </div>
+    </div>
+
+</div>

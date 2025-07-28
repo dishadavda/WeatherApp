@@ -1,0 +1,261 @@
+﻿@page "/weather"
+@attribute [Authorize]
+@layout LoginLayout
+@rendermode InteractiveServer
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using Weartherapp.Components.Layout
+@using Weartherapp.Services.Interface
+@using WeatherApp.Data.Entities
+@inject IFavoriteService FavoriteService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [StreamRendering]
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@using System.Text.RegularExpressions;
+@inject NavigationManager Navigation 
+
+@inject ICityWeatherService WeatherService
+
+<PageTitle>Weather</PageTitle>
+
+
+
+    <div class="container mx-auto max-w-4xl">
+        <h1 class="text-3xl font-bold text-center text-blue-700 mb-8">🌤️ City Weather Search</h1>
+
+        <!-- Search Bar & Favorites -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+            <div class="w-full sm:flex-grow">
+                <InputText @bind-Value="cityName"
+                           placeholder="Enter city name"
+                           class="w-full border border-gray-300 bg-white text-gray-800 placeholder-gray-400
+                                  rounded-lg py-2 px-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                                  transition duration-200 ease-in-out shadow-sm" />
+            </div>
+
+            <button @onclick="SearchCityWeather"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold
+                           py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-200
+                           transform hover:scale-105 w-full sm:w-auto">
+                Search
+            </button>
+
+            @if (Favoritecity?.Any() == true && storedName == "SuperUser")
+            {
+                <button @onclick="ToggleModal"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold
+                                   py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-200
+                                   transform hover:scale-105 w-full sm:w-auto flex items-center justify-center gap-2">
+                    <span class="text-xl">⭐</span>
+                    <span class="hidden sm:inline">Favorites</span>
+                </button>
+
+            <FavoriteModal IsVisible="isModalVisible"
+                           Cities="Favoritecity"
+                           OnRemove="RemoveCity"
+                           OnClose="ToggleModal"
+                           OnViewCity="HandleViewCity" />
+            }
+        
+        </div>
+    
+
+        @if (errorMessage != null)
+        {
+        <p class="text-red-600 font-semibold text-lg mt-2">@errorMessage</p>
+        }
+
+        <!-- Weather Display Section -->
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6">
+
+            <!-- Current Weather Card -->
+            @if (currentWeather != null)
+            {
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=160&q=80"
+                         alt="Weather"
+                         class="w-full md:w-48 h-48 object-cover" />
+
+                    <div class="p-4 flex flex-col justify-between w-full">
+                        <div>
+                            <h2 class="text-xl font-bold text-blue-700 mb-2">Current Weather - @cityName</h2>
+                            <p class="text-gray-800 mb-1">
+                                <strong>Temp:</strong> @currentWeather.TemperatureC °C / @currentWeather.TemperatureF °F
+                            </p>
+                            <p class="text-gray-800">
+                                <strong>Condition:</strong> @currentWeather.Summary
+                            </p>
+                        </div>
+                    @if (storedName == "SuperUser")
+                    {
+                        <button @onclick="() => SaveCityToFavorites(cityName)"
+                        class="mt-4 self-start inline-flex items-center gap-2 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold px-4 py-2 rounded-lg transition duration-150 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="w-5 h-5 text-pink-600" viewBox="0 0 20 20">
+                                <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 18.657l-6.828-6.829a4 4 0 010-5.656z" />
+                            </svg>
+                            Add to Favorites
+                        </button>
+                    }
+                </div>
+                </div>
+            }
+
+            <!-- Forecast Table -->
+            @if (forecasts != null)
+            {
+                <div class="bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+                    <WeatherForecastList Forecasts="forecasts" />
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+@code {
+    private WeatherForecast? currentWeather;
+    private List<Favoritecity> Favoritecity = new();
+    private string cityName = string.Empty;
+    private List<WeatherForecast>? forecasts;
+    private string? errorMessage;
+    private string? successMessage;
+    private bool isSuperUser = false;
+    private long currentUserId = 0;
+    private string storedName;
+    private bool isModalVisible = false;
+    private bool _initialized = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+
+    {
+        if (firstRender && !_initialized)
+        {
+            _initialized = true;
+
+            try
+            {
+                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                bool isAuthenticated = authState.User.Identity?.IsAuthenticated == true;
+                var user = authState.User;
+
+                storedName = await localStorage.GetItemAsync<string>("name");
+                currentUserId = await localStorage.GetItemAsync<long>("Id");
+
+                if (storedName == "SuperUser")
+                {
+                    Favoritecity = await FavoriteService.GetFavoritesByUserIdAsync(currentUserId);
+                }
+
+                StateHasChanged(); // refresh UI
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[OnAfterRenderAsync] Error: {ex.Message}");
+            }
+        }
+    }
+    private async Task ToggleModal()
+    {
+        isModalVisible = !isModalVisible;
+
+        if (isModalVisible)
+        {
+            // Fetch favorites only when opening modal
+
+            Favoritecity = await FavoriteService.GetFavoritesByUserIdAsync(currentUserId);
+        }
+    }
+    private async Task HandleViewCity(string selectedCity)
+    {
+        cityName = selectedCity;
+        await SearchCityWeather(); // or call your fetch method
+        isModalVisible = false;    // optionally close the modal
+    }
+    private async Task RemoveCity((long Id, Favoritecity City) item)
+    {
+        try
+        {
+            await FavoriteService.RemoveFavoriteAsync(item.Id);
+            Favoritecity.Remove(item.City);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[RemoveFavorite] Error: {ex.Message}");
+        }
+    }
+    protected async Task SearchCityWeather()
+    {
+        // Add this line to confirm the method is being entered
+        Console.WriteLine($"[Weather] SearchCityWeather called for city: {cityName}");
+        errorMessage = null; // Reset error message at the start
+        if (string.IsNullOrWhiteSpace(cityName) || !IsValidCityName(cityName))
+        {
+            errorMessage = "Please enter a valid city name.";
+            forecasts = null;
+            currentWeather = null;
+            return;
+        }
+        try
+        {
+            forecasts = await WeatherService.GetForecastForCityAsync(cityName);
+            currentWeather = await WeatherService.GetCurrentWeatherAsync(cityName);
+            if (forecasts == null || forecasts.Count == 0)
+            {
+                errorMessage = $"No weather data found for {cityName}.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to fetch weather data for {cityName}. Please try again. Error: {ex.Message}";
+            Console.WriteLine($"[Weather] Error fetching weather: {ex.Message}");
+            // Optionally, log the full stack trace for more details in development
+            // Console.WriteLine(ex.StackTrace);
+        }
+        // Force UI update, though Blazor usually handles this for event handlers
+        // StateHasChanged();
+    }
+    private bool IsValidCityName(string input)
+    {
+        return Regex.IsMatch(input, @"^[a-zA-Z\s]+$");
+    }
+    private async Task SaveCityToFavorites(string cityname)
+    {
+        try
+        {
+            var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync())?.User;
+
+            if (storedName == "SuperUser")
+            {           
+
+                var favorite = new Favoritecity
+                {
+                    CityName = cityname,
+                    UserId = currentUserId
+                };
+
+                bool result = await FavoriteService.AddFavoriteAsync(favorite.UserId, cityname);
+                if(result)
+                {
+                    Favoritecity = await FavoriteService.GetFavoritesByUserIdAsync(favorite.UserId);
+                    successMessage = $"{cityname} added to your favorites!";
+                    errorMessage = null;
+                }
+                else
+                {
+                    errorMessage = "You can only save up to 5 favorite cities or already had";
+                    successMessage = null;
+                    return;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Failed to save city to favorites.";
+            successMessage = null;
+            Console.WriteLine($"[SaveCityToFavorites] Error: {ex.Message}");
+        }
+
+    }
+   
+}

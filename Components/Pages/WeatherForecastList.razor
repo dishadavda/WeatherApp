@@ -1,0 +1,35 @@
+﻿@using WeatherApp.Data.Entities
+@inherits LayoutComponentBase
+
+@if (Forecasts != null)
+{
+    <table class="w-full text-left border-collapse">
+        <thead class="bg-blue-100">
+            <tr>
+                <th class="px-4 py-2">Date</th>
+                <th class="px-4 py-2">Temp (°C)</th>
+                <th class="px-4 py-2">Temp (°F)</th>
+                <th class="px-4 py-2">Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in Forecasts)
+            {
+                <tr class="border-b">
+                    <td class="px-4 py-2">@forecast.Date.ToString("dd-MMM-yy")</td>
+                    <td class="px-4 py-2">@forecast.TemperatureC</td>
+                    <td class="px-4 py-2">@forecast.TemperatureF</td>
+                    <td class="px-4 py-2">@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-gray-700 italic">No forecast data to display.</p>
+}
+
+@code {
+    [Parameter] public List<WeatherForecast>? Forecasts { get; set; }
+}

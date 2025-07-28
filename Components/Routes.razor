@@ -1,0 +1,40 @@
+﻿@using Weartherapp.Components.Layout
+@inject NavigationManager Navigation
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @* Redirect unauthorized users *@
+                    @if (!context.User.Identity.IsAuthenticated)
+                    {
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <RedirectToAccessDenied />
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+@code {
+    private RenderFragment RedirectToLogin => builder =>
+    {
+        //var navManager = NavigationManager;
+        Navigation.NavigateTo("/login", true);
+    };
+
+    private RenderFragment RedirectToAccessDenied => builder =>
+    {
+        //var navManager = NavigationManager;
+        Navigation.NavigateTo("/access-denied", true);
+    };
+}
