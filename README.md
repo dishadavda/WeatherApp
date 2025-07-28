@@ -58,12 +58,12 @@ Create a new `appsettings.json` (DO NOT PUSH THIS TO GITHUB):
    dotnet ef database update
    ```
 
-2. Ensure roles are seeded:
+2. Ensure roles are added manually in the database after migration:
 
    - `Simple`
    - `Super`
 
-(These are created during Identity seeding in `Startup.cs` or `Program.cs`.)
+(You can insert them into the AspNetRoles table using your MySQL tool or via a SQL script.)
 
 ---
 
